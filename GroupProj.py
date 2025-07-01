@@ -1,3 +1,4 @@
+##import necessary packages and libraries
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -27,6 +28,23 @@ print(f"Total records: {len(df)}")
 print(f"Date range: {df['work_year'].min()} - {df['work_year'].max()}")
 print(f"Unique job titles: {df['job_title'].nunique()}")
 print(f"Countries represented: {df['company_location'].nunique()}")
+
+# ================================
+# Data Cleaning
+# ================================
+#Check for missing data/values
+df.info()
+print("\n========== Missing Values:==========")
+print(df.isnull().sum())
+
+#drop duplicate values
+df = df.drop_duplicates()
+
+#validate data types
+df['salary_in_usd'] = pd.to_numeric(df['salary_in_usd'], errors='coerce')
+
+#standardize categorical fields / strings
+df['job_title'] = df['job_title'].str.lower().str.strip()
 
 # ================================
 # OBJECTIVE 1: Most In-Demand Jobs & Highest Salaries

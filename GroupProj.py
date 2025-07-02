@@ -51,6 +51,26 @@ df['job_title'] = df['job_title'].str.lower().str.strip()
 
 
 # ================================
+# Outlier Removal (Salary using IQR)
+# ================================
+Q1 = df['salary_in_usd'].quantile(0.25)
+Q3 = df['salary_in_usd'].quantile(0.75)
+IQR = Q3 - Q1
+
+# Define salary range using IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# Remove outliers above upper bound (lower bound is not needed since salaries are positive)
+initial_len = len(df)
+df = df[df['salary_in_usd'] <= upper_bound]
+removed = initial_len - len(df)
+
+print(f"\n========== Outlier Removal ==========")
+print(f"Removed {removed} outlier records with salary > ${upper_bound:,.0f}")
+print(f"Remaining records: {len(df)}")
+
+
+# ================================
 # OBJECTIVE 1: Most In-Demand Jobs & Highest Salaries
 # ================================
 print("\n" + "="*80)
@@ -103,7 +123,7 @@ ax1.grid(True, alpha=0.3, axis='x')
 ax1.invert_yaxis()
 
     # Add value labels
-    for i, (bar, count) in enumerate(zip(bars1, top_demand['demand_count'])):
+for i, (bar, count) in enumerate(zip(bars1, top_demand['demand_count'])):
         ax1.text(bar.get_width() + 5, bar.get_y() + bar.get_height()/2,
                 f'{int(count)}', ha='left', va='center', fontsize=8)
 
@@ -117,7 +137,7 @@ ax2.grid(True, alpha=0.3, axis='x')
 ax2.invert_yaxis()
 
     # Add value labels
-    for i, (bar, salary) in enumerate(zip(bars2, top_salary['average_salary_usd'])):
+for i, (bar, salary) in enumerate(zip(bars2, top_salary['average_salary_usd'])):
         ax2.text(bar.get_width() + 5000, bar.get_y() + bar.get_height()/2,
                 f'${salary:,.0f}', ha='left', va='center', fontsize=8)
 
@@ -256,7 +276,7 @@ ax1.grid(True, alpha=0.3, axis='x')
 ax1.invert_yaxis()
 
     # Add salary labels
-    for bar, salary in zip(bars1, top_15['salary_in_usd']):
+for bar, salary in zip(bars1, top_15['salary_in_usd']):
         ax1.text(bar.get_width() + 10000, bar.get_y() + bar.get_height()/2,
                 f'${salary:,.0f}', ha='left', va='center', fontsize=9)
 
@@ -270,7 +290,7 @@ ax2.set_title('Top 10 Countries by Average AI/ML Salary', fontweight='bold')
 ax2.grid(True, alpha=0.3, axis='y')
 
     # Add value labels
-    for bar, salary in zip(bars2, top_10_countries['avg_salary']):
+for bar, salary in zip(bars2, top_10_countries['avg_salary']):
         ax2.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 3000,
                 f'${salary:,.0f}', ha='center', va='bottom', fontsize=9)
 
@@ -284,7 +304,7 @@ print("\n" + "="*80)
 print("COMPREHENSIVE ANALYSIS SUMMARY")
 print("="*80)
 
-print(f"\n BJECTIVE 1 - KEY FINDINGS:")
+print(f"\n OBJECTIVE 1 - KEY FINDINGS:")
 print(f"   • Most in-demand role: {job_summary_by_demand.index[0]} ({job_summary_by_demand.iloc[0]['demand_count']:.0f} postings)")
 print(f"   • Highest paying role: {job_summary_by_salary.index[0]} (${job_summary_by_salary.iloc[0]['average_salary_usd']:,.0f})")
 

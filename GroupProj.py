@@ -137,7 +137,7 @@ bars1 = ax1.barh(range(len(top_demand)), top_demand['demand_count'], color='stee
 ax1.set_yticks(range(len(top_demand)))
 ax1.set_yticklabels([job[:25] + '...' if len(job) > 25 else job for job in top_demand.index], fontsize=9)
 ax1.set_xlabel('Number of Job Postings')
-ax1.set_title('Top 10 Most In-Demand AI/ML Positions', fontsize=12, fontweight='bold')
+ax1.set_title('Figure 1. Top 10 Most In-Demand AI/ML Positions', fontsize=12, fontweight='bold')
 ax1.grid(True, alpha=0.3, axis='x')
 ax1.invert_yaxis()
 
@@ -150,7 +150,7 @@ bars2 = ax2.barh(range(len(top_salary)), top_salary['average_salary_usd'], color
 ax2.set_yticks(range(len(top_salary)))
 ax2.set_yticklabels([job[:25] + '...' if len(job) > 25 else job for job in top_salary.index], fontsize=9)
 ax2.set_xlabel('Average Salary (USD)')
-ax2.set_title('Top 10 Highest Paying AI/ML Positions', fontsize=12, fontweight='bold')
+ax2.set_title('Figure 2. Top 10 Highest Paying AI/ML Positions', fontsize=12, fontweight='bold')
 ax2.grid(True, alpha=0.3, axis='x')
 ax2.invert_yaxis()
 
@@ -208,7 +208,7 @@ ax1.scatter(y_test, y_pred, alpha=0.6, color='blue', s=50)
 ax1.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
 ax1.set_xlabel('Actual Salary (USD)')
 ax1.set_ylabel('Predicted Salary (USD)')
-ax1.set_title(f'Model Prediction Accuracy\nR² = {r2:.3f}, RMSE = ${rmse:,.0f}', fontweight='bold')
+ax1.set_title(f'Figure 3. Model Prediction Accuracy\nR² = {r2:.3f}, RMSE = ${rmse:,.0f}', fontweight='bold')
 ax1.grid(True, alpha=0.3)
 
 #Figure 4: Error Distribution
@@ -217,7 +217,7 @@ ax2.scatter(y_pred, residuals, alpha=0.6, color='green', s=50)
 ax2.axhline(y=0, color='r', linestyle='--', alpha=0.8)
 ax2.set_xlabel('Predicted Salary (USD)')
 ax2.set_ylabel('Residuals (Actual - Predicted)')
-ax2.set_title('Residuals Analysis', fontweight='bold')
+ax2.set_title('Figure 4. Residuals Analysis', fontweight='bold')
 ax2.grid(True, alpha=0.3)
 
 plt.tight_layout()
@@ -271,7 +271,7 @@ ax1.set_yticklabels([f"{row['company_location']} - {row['job_title'][:20]}..."
                     if len(row['job_title']) > 20 else f"{row['company_location']} - {row['job_title']}" 
                     for _, row in top_15.iterrows()], fontsize=10)
 ax1.set_xlabel('Average Salary (USD)')
-ax1.set_title('Top 15 Countries: Highest Paying AI/ML Roles', fontsize=12, fontweight='bold')
+ax1.set_title('Figure 5. Top 15 Countries: Highest Paying AI/ML Roles', fontsize=12, fontweight='bold')
 ax1.grid(True, alpha=0.3, axis='x')
 ax1.invert_yaxis()
 
@@ -285,7 +285,7 @@ bars2 = ax2.bar(range(len(top_10_countries)), top_10_countries['avg_salary'], co
 ax2.set_xticks(range(len(top_10_countries)))
 ax2.set_xticklabels(top_10_countries['company_location'], rotation=45, ha='right')
 ax2.set_ylabel('Average Salary (USD)')
-ax2.set_title('Top 10 Countries by Average AI/ML Salary', fontweight='bold')
+ax2.set_title('Figure 6. Top 10 Countries by Average AI/ML Salary', fontweight='bold')
 ax2.grid(True, alpha=0.3, axis='y')
 
 for bar, salary in zip(bars2, top_10_countries['avg_salary']):
